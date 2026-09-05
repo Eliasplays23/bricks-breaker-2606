@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Game.h"
+#include <vector>
 
 Game::Game()
 {
@@ -20,12 +21,21 @@ void Game::Reset()
 	ResetBall();
 
 	// TODO #2 - Add this brick and 4 more bricks to the vector
+	Box brick;
+
 	brick.width = 10;
 	brick.height = 2;
 	brick.x_position = 0;
 	brick.y_position = 5;
 	brick.doubleThick = true;
 	brick.color = ConsoleColor::DarkGreen;
+
+	int spaces = 3;
+	for (int i = 0; i < 5; ++i) 
+	{
+		brick.x_position = brick.x_position + (i * brick.width + spaces);
+		bricks.push_back(brick);
+	}
 }
 
 void Game::ResetBall()
@@ -69,6 +79,7 @@ void Game::Render() const
 	ball.Draw();
 
 	// TODO #3 - Update render to render all bricks
+	Box brick;
 	brick.Draw();
 
 	Console::Lock(false);
@@ -77,6 +88,7 @@ void Game::Render() const
 void Game::CheckCollision()
 {
 	// TODO #4 - Update collision to check all bricks
+	Box brick;
 	if (brick.Contains(ball.x_position + ball.x_velocity, ball.y_position + ball.y_velocity))
 	{
 		brick.color = ConsoleColor(brick.color - 1);
